@@ -1,0 +1,34 @@
+<html>
+	<head>
+			<style>
+				.container-one {
+					min-height: 200px;
+					background-color: white;
+				}
+				.container-two {
+					min-height: 200px;
+					background-color: green;
+					color: white;
+				}
+			</style>
+	</head>
+	<body>
+		<button id="start-quiz-button">Start the quiz!</button>
+		<div class="container-one">
+		</div>
+		<div class="container-two">
+		</div>
+		<script src="http://underscorejs.org/underscore-min.js"></script>
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="quizzy_data.js"></script>
+		<script src="quizzy_models.js"></script>
+		<script src="quizzy_views.js"></script>
+		<script src="quizzy_controllers.js"></script>
+		<script>
+			$('#start-quiz-button').on('click', function() {
+				var $container = $('.container-two');
+				ApplicationController.startQuiz($container);
+			});
+		</script>
+	</body>
+</html>
