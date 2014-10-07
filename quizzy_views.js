@@ -29,4 +29,14 @@ function QuestionView(questionModel, $container) {
 	this.hide = function() {
 		$view.hide();
 	};
+
 }
+
+function newQuizView(QuizModel, $container){
+	var html = ['<form>',
+					'<input type="text" name="question">',
+					'<input type="submit">',
+				'</form>'].join('');
+	$view = $(html);
+	$container.append($view);
+};

@@ -14,22 +14,31 @@
 	</head>
 	<body>
 		<button id="start-quiz-button">Start the quiz!</button>
+		<button id="create-new-quiz-button">Create a new quiz</button>
 		<div class="container-one">
 		</div>
-		<div class="container-two">
-		</div>
+
 		<script src="http://underscorejs.org/underscore-min.js"></script>
 		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="repo.js"></script>
 		<script src="quizzy_data.js"></script>
 		<script src="quizzy_models.js"></script>
 		<script src="quizzy_views.js"></script>
 		<script src="quizzy_controllers.js"></script>
 		<script>
+
 			$('#start-quiz-button').on('click', function() {
-				var $container = $('.container-two');
+				var $container = $('.container-one');
 				ApplicationController.startQuiz($container);
 				$(this).hide();
 			});
+
+			// $('#create-new-quiz-button'.on('click', function() {
+			// 	ApplicationController.hideQuestions();
+			// 	var $container = $('.container-one');
+			// 	// ApplicationController.createNewQuiz($container);
+			// })
+
 		</script>
 	</body>
 </html>

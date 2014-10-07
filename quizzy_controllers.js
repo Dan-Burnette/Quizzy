@@ -7,10 +7,10 @@ var ApplicationController = {
 	highScore: 0,
 	questionAveragesAndTimesPlayed: undefined,
 
-	startQuiz: function($container) {
+	startQuiz: function($container, quizModel) {
 
 		this.$container = $container;
-		var questionsData = quizData.questions;
+		var questionsData = quizModel.questions;
 		this.totalQuestions = questionsData.length;
 
 		//High Score logic initiation & TimesPlayed--------
@@ -58,7 +58,7 @@ var ApplicationController = {
 		for (var i = 0; i < this.questionViews.length; i++) {
 			this.questionViews[i].hide();
 		}
-		
+
 	},
 
 	checkAnswer: function(userAnswer) {
@@ -138,7 +138,43 @@ var ApplicationController = {
 		var finalQuestionAverageString = questionAveragesStrings.join('');
 					
 		this.$container.append(yourScoreStr + highScoreStr + finalQuestionAverageString);
+	},
+
+	createNewQuiz: function(name, questionDataArray) {
+		QuizesRepo.setupRepo();
+		var newQuiz = new QuizModel(name, questionDataArray);
+		QuizesRepo.saveQuiz(newQuiz);
+
 	}
+
 };
 
+//Test quiz data-----------------------------
+var data1 = {
+		id : 0,
+		question : "What is correct?",
+		answer : "poop",
+		choices : ["poop", "pizza", "beans", "farts"]
+	}
+
+var data2 = {
+		id : 1,
+		question : "Which is correct this time?",
+		answer : "pizza",
+		choices : ["pooop", "pizza", "chunky", "beans"]
+	}
+	
+var data3 = {
+		id : 2,
+		question : "NOW WHAT?",
+		answer : "uracil",
+		choices : ["thymine", "cytosine", "adenine", "uracil"]
+	}
+
+var myQuestionDataArray = [data1, data2, data3];
+ApplicationController.createNewQuiz("TESTQUIZ", myQuestionDataArray);
+
+//end test quiz data ---------------------
+
+var editController = {};
 
