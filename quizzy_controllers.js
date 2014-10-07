@@ -2,35 +2,29 @@ var ApplicationController = {
 	$container: undefined,
 	questionViews: [],
 	questionModels: [],
-
-	questionAvgScores: 
-	{
-		question1: {timesPlayed: undefined, avg: undefined},
-		question2: {timesPlayed: undefined, avg: undefined},
-		question3: {timesPlayed: undefined, avg: undefined},
-		question4: {timesPlayed: undefined, avg: undefined},
-		question5: {timesPlayed: undefined, avg: undefined},
-		question6: {timesPlayed: undefined, avg: undefined},
-	},
-
 	totalQuestions: undefined,
 	correctAnswers: 0,
 	highScore: 0,
+
 	startQuiz: function($container) {
 
 		this.$container = $container;
 		var questionsData = quizData.questions;
 		this.totalQuestions = questionsData.length;
 
-		//High Score logic initiation
-		if (localStorage['highScore'] != undefined) {
+		//High Score logic initiation--------
+		//If localStorage keys exist
+		if (localStorage['highScore'] != undefined && localStorage['highScorePlayerName'] != undefined) {
 			this.highScore = localStorage['highScore'];
+			this.highScorePlayerName = localStorage['highScorePlayerName'];
 		}
+		//Else initialize them
 		else {
 			localStorage['highScore'] = 0;
+			localStorage['highScorePlayerName'] = "nobody";
 		}
 
-		//Question average score logic initiation
+		//Question average score logic initiation-----------
 		for (var i=1; i < this.totalQuestions + 1; i++){
 			timesPlayed = localStorage['timesPlayed' + i];
 			avg = localStorage['avg' + i];
@@ -43,15 +37,14 @@ var ApplicationController = {
 				localStorage['avg' + i] = avg;
 			}
 		}
-		
-
-
+	
 		for (var i = 0; i < questionsData.length; i++) {
 			var questionModel = new Question(questionsData[i]);
 			var questionView = new QuestionView(questionModel, this.$container);
 			this.questionModels.push(questionModel);
 			this.questionViews.push(questionView);
 		}
+
 		this.currentQuestionIndex = 0;
 		this.showQuestion(this.currentQuestionIndex);
 	},
@@ -115,21 +108,31 @@ var ApplicationController = {
 		localStorage['timesPlayed' + index] = timesPlayed;
 	},
 
+	getHighScore: function(){
+		this.highScore = this.calculateScore();
+		//If your score is a new high score
+		if (this.highScore > localStorage['highScore']) {
+			var highScorePlayerName = prompt("You've gotten the highest score yet! Enter your name!");
+			localStorage['highScore'] = this.highScore;
+			localStorage['highScorePlayerName'] = highScorePlayerName;
+		}
+	},
+
 	showResults: function(percentScore) {
 		this.hideQuestions();
-
-		this.highScore = this.correctAnswers/this.totalQuestions;
-		if (this.highScore > localStorage['highScore']) {
-			localStorage['highScore'] = this.highScore
+		this.getHighScore();
+		var highScore = parseInt(localStorage['highScore']);
+		var yourScoreStr = '<h1>You got ' + percentScore + '%! That\'s ' + this.correctAnswers + ' out of ' + this.totalQuestions + '! ';
+		var highScoreStr = " The current high score is " + highScore +  "% by " + localStorage['highScorePlayerName'];
+		var questionAveragesStrings = [];
+		for (var i=1; i < this.totalQuestions + 1; i++) { 
+			var questionAvg = "<br><h1> Question " + i + "'s average is: " + localStorage['avg'+i] + "</h1>";
+			questionAveragesStrings.push(questionAvg);
 		}
-
-		this.$container.append(
-			'<h1>You got ' + percentScore + '%! That\'s ' +
-			this.correctAnswers + ' out of ' + this.totalQuestions + '!!!!!!!' +
-			"The current high score is " + this.highScore + " Question 1's average is: " + localStorage['avg1'] +
-			" Question 2's average is: " + localStorage['avg2'] + " Question 3's average is: " + localStorage['avg3'] +
-			" Question 4's average is: " + localStorage['avg4'] + " Question 5's average is: " + localStorage['avg5'] +
-			" Question 6's average is: " + localStorage['avg6']
-		);
+		var finalQuestionAverageString = questionAveragesStrings.join('');
+					
+		this.$container.append(yourScoreStr + highScoreStr + finalQuestionAverageString);
 	}
 };
+
+
