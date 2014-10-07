@@ -28,6 +28,7 @@
 			$('#start-quiz-button').on('click', function() {
 				var $container = $('.container-two');
 				ApplicationController.startQuiz($container);
+				$(this).hide();
 			});
 		</script>
 	</body>
