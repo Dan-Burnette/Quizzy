@@ -14,15 +14,21 @@ var QuizesRepo = {
 	},
 
 	saveQuiz: function(quizModel) {
-		var name = quizModel.name;
 		var quiz = JSON.stringify(quizModel);
 		var quizes = JSON.parse(localStorage['quizes']);
 		quizes.push(quiz);
 		localStorage['quizes'] = JSON.stringify(quizes);
 	},
 
-	getQuiz: function() {
-
+	getQuiz: function(name) {
+		var quizes = JSON.parse(localStorage['quizes']);
+		for (var i=0; i < quizes.length; i++){
+			var quiz = quizes[i];
+			console.log(quiz);
+			if (quiz.name == name){
+				return quiz;
+			}
+		}
 	},
 
 }

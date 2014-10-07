@@ -29,7 +29,8 @@
 
 			$('#start-quiz-button').on('click', function() {
 				var $container = $('.container-one');
-				ApplicationController.startQuiz($container);
+				var quiz = QuizesRepo.getQuiz("TESTQUIZ");
+				ApplicationController.startQuiz($container, quiz);
 				$(this).hide();
 			});
 
