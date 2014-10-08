@@ -203,29 +203,3 @@ var creationController = {
 
 
 };
-
-//Test quiz data-----------------------------
-// var data1 = {
-// 		id : 0,
-// 		question : "What is correct?",
-// 		answer : "poop",
-// 		choices : ["poop", "pizza", "beans", "farts"]
-// 	}
-
-// var data2 = {
-// 		id : 1,
-// 		question : "Which is correct this time?",
-// 		answer : "pizza",
-// 		choices : ["pooop", "pizza", "chunky", "beans"]
-// 	}
-	
-// var data3 = {
-// 		id : 2,
-// 		question : "NOW WHAT?",
-// 		answer : "uracil",
-// 		choices : ["thymine", "cytosine", "adenine", "uracil"]
-// 	}
-
-// var myQuestionDataArray = [data1, data2, data3];
-
-//end test quiz data ---------------------

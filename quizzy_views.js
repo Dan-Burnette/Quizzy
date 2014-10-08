@@ -71,7 +71,9 @@ function QuizCreationView($container){
 	$('.save-quiz').on('click', function() {
 		var quizModel = creationController.processQuizCreationView($container);
 		$('.temporary').remove();
+		$('.pick-a-quiz').show();
 		ApplicationController.startQuiz($container, quizModel);
 	})
 
 }
+

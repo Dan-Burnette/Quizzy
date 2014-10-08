@@ -14,12 +14,13 @@
 	</head>
 
 	<body>
-		<label class="pick-a-quiz-label">Pick a Quiz!</label><br><br>
-		<select class="pick-a-quiz"></select><br><br>
+		
+		<select class="pick-a-quiz"></select>
 		<button id="start-quiz-button">Start the quiz!</button><br><br>
 		<button id="create-new-quiz-button">Create a new quiz</button>
 		<div class="container-one">
 		</div>
+		<div class="container-two"> </div>
 
 		<script src="http://underscorejs.org/underscore-min.js"></script>
 		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -37,9 +38,8 @@
 				var quizModel = QuizesRepo.getQuiz(quizName);
 				ApplicationController.startQuiz($container, quizModel);
 				$(this).hide();
-				$('.create-new-quiz-button').hide();
+				$('#create-new-quiz-button').hide();
 				$('.pick-a-quiz').hide();
-				
 			})
 
 			$('#create-new-quiz-button').on('click', function() {
@@ -48,6 +48,7 @@
 				creationController.setupNewQuiz($container);
 			})
 
+			//Populate the selector
 			var quizNames = QuizesRepo.getQuizNames();
 			console.log(quizNames);
 			$.each(quizNames, function(index, value){
