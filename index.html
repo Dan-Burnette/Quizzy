@@ -12,6 +12,7 @@
 				}
 			</style>
 	</head>
+
 	<body>
 		<button id="start-quiz-button">Start the quiz!</button>
 		<button id="create-new-quiz-button">Create a new quiz</button>
@@ -32,14 +33,20 @@
 				var quiz = QuizesRepo.getQuiz("TESTQUIZ");
 				ApplicationController.startQuiz($container, quiz);
 				$(this).hide();
-			});
+			})
 
-			// $('#create-new-quiz-button'.on('click', function() {
-			// 	ApplicationController.hideQuestions();
-			// 	var $container = $('.container-one');
-			// 	// ApplicationController.createNewQuiz($container);
-			// })
+			$('#create-new-quiz-button').on('click', function() {
+				ApplicationController.hideQuestions();
+				var $container = $('.container-one');
+				creationController.setupNewQuiz($container);
+			})
 
 		</script>
+
+		<script>
+
+		</script>
+
 	</body>
 </html>
+

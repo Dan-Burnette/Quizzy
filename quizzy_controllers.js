@@ -138,14 +138,83 @@ var ApplicationController = {
 		var finalQuestionAverageString = questionAveragesStrings.join('');
 					
 		this.$container.append(yourScoreStr + highScoreStr + finalQuestionAverageString);
+	}
+
+};
+
+
+
+var creationController = {
+
+	setupNewQuiz: function($container) {
+		var quizCreationView = new QuizCreationView($container);
+	},
+
+	processQuizCreationView: function($container){
+		var name = $container.find('.name').val();
+		var $questions = $($container.find('.question'));
+		var $answers = $($container.find('.answer'));
+		var $choices = $($container.find('.choice'));
+
+		var questions = [];
+		var answers = [];
+		var choices = [];
+
+		$questions.each(function() {
+			var question = $(this).val();
+			questions.push(question);
+		})
+
+		$answers.each(function() {
+			var answer = $(this).val();
+			answers.push(answer);
+		})
+
+		$choices.each(function() {
+			var choice = $(this).val();
+			choices.push(choice);
+		})
+
+		var questionData = [];
+		choiceCounter = 0;
+		for (var i=0; i < questions.length; i++){
+			var data = {
+				id : i,
+				question : questions[i],
+				answer : answers[i],
+				choices: [choices[choiceCounter], 
+						  choices[choiceCounter+1], 
+						  choices[choiceCounter+2], 
+						  choices[choiceCounter+3]
+						 ]
+			};
+			choiceCounter += 4;
+
+			console.log(data);
+		}
+
+
+		// {
+		// 	id : 0,
+		// 	question : "Which of these is not found in DNA?",
+		// 	answer : "uracil",
+		// 	choices : ["thymine", "cytosine", "adenine", "uracil"]
+		// },
+
+		// console.log(name);
+		// console.log(questions);
+		// console.log(answers);
+		// console.log(choices);
+
+		// creationController.createNewQuiz(name, questionData);
 	},
 
 	createNewQuiz: function(name, questionDataArray) {
 		QuizesRepo.setupRepo();
 		var newQuiz = new QuizModel(name, questionDataArray);
 		QuizesRepo.saveQuiz(newQuiz);
-
 	}
+
 
 };
 
@@ -172,9 +241,5 @@ var data3 = {
 	}
 
 var myQuestionDataArray = [data1, data2, data3];
-ApplicationController.createNewQuiz("TESTQUIZ", myQuestionDataArray);
 
 //end test quiz data ---------------------
-
-var editController = {};
-
