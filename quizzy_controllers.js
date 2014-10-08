@@ -8,7 +8,6 @@ var ApplicationController = {
 	questionAveragesAndTimesPlayed: undefined,
 
 	startQuiz: function($container, quizModel) {
-		console.log(quizModel);
 		quizName = quizModel.name;
 		this.$container = $container;
 		var questionsData = quizModel.questions;
@@ -207,6 +206,10 @@ var creationController = {
 		var newQuiz = new QuizModel(name, questionDataArray);
 		QuizesRepo.saveQuiz(newQuiz);
 		return newQuiz;
+	},
+
+	deleteQuiz: function(name){
+		
 	}
 
 
