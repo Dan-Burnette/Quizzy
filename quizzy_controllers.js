@@ -155,7 +155,6 @@ var creationController = {
 		var $questions = $($container.find('.question'));
 		var $answers = $($container.find('.answer'));
 		var $choices = $($container.find('.choice'));
-
 		var questions = [];
 		var answers = [];
 		var choices = [];
@@ -174,7 +173,7 @@ var creationController = {
 			var choice = $(this).val();
 			choices.push(choice);
 		})
-
+		
 		var questionData = [];
 		choiceCounter = 0;
 		for (var i=0; i < questions.length; i++){
@@ -189,24 +188,10 @@ var creationController = {
 						 ]
 			};
 			choiceCounter += 4;
-
-			console.log(data);
+			questionData.push(data);
 		}
 
-
-		// {
-		// 	id : 0,
-		// 	question : "Which of these is not found in DNA?",
-		// 	answer : "uracil",
-		// 	choices : ["thymine", "cytosine", "adenine", "uracil"]
-		// },
-
-		// console.log(name);
-		// console.log(questions);
-		// console.log(answers);
-		// console.log(choices);
-
-		// creationController.createNewQuiz(name, questionData);
+		creationController.createNewQuiz(name, questionData);
 	},
 
 	createNewQuiz: function(name, questionDataArray) {
