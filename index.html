@@ -14,7 +14,9 @@
 	</head>
 
 	<body>
-		<button id="start-quiz-button">Start the quiz!</button>
+		<label class="pick-a-quiz-label">Pick a Quiz!</label><br><br>
+		<select class="pick-a-quiz"></select><br><br>
+		<button id="start-quiz-button">Start the quiz!</button><br><br>
 		<button id="create-new-quiz-button">Create a new quiz</button>
 		<div class="container-one">
 		</div>
@@ -30,15 +32,29 @@
 
 			$('#start-quiz-button').on('click', function() {
 				var $container = $('.container-one');
-				var quiz = QuizesRepo.getQuiz("TESTQUIZ");
-				ApplicationController.startQuiz($container, quiz);
+				var quizName = $('.pick-a-quiz').val();
+				// console.log(quizName);
+				var quizModel = QuizesRepo.getQuiz(quizName);
+				ApplicationController.startQuiz($container, quizModel);
 				$(this).hide();
+				$('.create-new-quiz-button').hide();
+				$('.pick-a-quiz').hide();
+				
 			})
 
 			$('#create-new-quiz-button').on('click', function() {
 				ApplicationController.hideQuestions();
 				var $container = $('.container-one');
 				creationController.setupNewQuiz($container);
+			})
+
+			var quizNames = QuizesRepo.getQuizNames();
+			console.log(quizNames);
+			$.each(quizNames, function(index, value){
+				console.log();
+				var optionHTML = '<option value='+ value + 
+								 '>'+ value + '</option>';
+			 	$('.pick-a-quiz').append(optionHTML);
 			})
 
 		</script>

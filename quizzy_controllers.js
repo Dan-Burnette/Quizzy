@@ -8,7 +8,7 @@ var ApplicationController = {
 	questionAveragesAndTimesPlayed: undefined,
 
 	startQuiz: function($container, quizModel) {
-
+		console.log(quizModel);
 		this.$container = $container;
 		var questionsData = quizModel.questions;
 		this.totalQuestions = questionsData.length;
@@ -173,7 +173,7 @@ var creationController = {
 			var choice = $(this).val();
 			choices.push(choice);
 		})
-		
+
 		var questionData = [];
 		choiceCounter = 0;
 		for (var i=0; i < questions.length; i++){
@@ -190,41 +190,42 @@ var creationController = {
 			choiceCounter += 4;
 			questionData.push(data);
 		}
-
-		creationController.createNewQuiz(name, questionData);
+		var quizModel = creationController.createNewQuiz(name, questionData);
+		return quizModel;
 	},
 
 	createNewQuiz: function(name, questionDataArray) {
 		QuizesRepo.setupRepo();
 		var newQuiz = new QuizModel(name, questionDataArray);
 		QuizesRepo.saveQuiz(newQuiz);
+		return newQuiz;
 	}
 
 
 };
 
 //Test quiz data-----------------------------
-var data1 = {
-		id : 0,
-		question : "What is correct?",
-		answer : "poop",
-		choices : ["poop", "pizza", "beans", "farts"]
-	}
+// var data1 = {
+// 		id : 0,
+// 		question : "What is correct?",
+// 		answer : "poop",
+// 		choices : ["poop", "pizza", "beans", "farts"]
+// 	}
 
-var data2 = {
-		id : 1,
-		question : "Which is correct this time?",
-		answer : "pizza",
-		choices : ["pooop", "pizza", "chunky", "beans"]
-	}
+// var data2 = {
+// 		id : 1,
+// 		question : "Which is correct this time?",
+// 		answer : "pizza",
+// 		choices : ["pooop", "pizza", "chunky", "beans"]
+// 	}
 	
-var data3 = {
-		id : 2,
-		question : "NOW WHAT?",
-		answer : "uracil",
-		choices : ["thymine", "cytosine", "adenine", "uracil"]
-	}
+// var data3 = {
+// 		id : 2,
+// 		question : "NOW WHAT?",
+// 		answer : "uracil",
+// 		choices : ["thymine", "cytosine", "adenine", "uracil"]
+// 	}
 
-var myQuestionDataArray = [data1, data2, data3];
+// var myQuestionDataArray = [data1, data2, data3];
 
 //end test quiz data ---------------------

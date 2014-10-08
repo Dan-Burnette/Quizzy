@@ -23,12 +23,23 @@ var QuizesRepo = {
 	getQuiz: function(name) {
 		var quizes = JSON.parse(localStorage['quizes']);
 		for (var i=0; i < quizes.length; i++){
-			var quiz = quizes[i];
+			var quiz = JSON.parse(quizes[i]);
 			console.log(quiz);
 			if (quiz.name == name){
 				return quiz;
 			}
 		}
 	},
+
+	getQuizNames: function(){
+		var names = [];
+		var quizes = JSON.parse(localStorage['quizes']);
+		console.log("quizes are : ", quizes);
+		for (var i=0; i < quizes.length; i++){
+			var quiz = JSON.parse(quizes[i]);
+			names.push(quiz.name);
+		}
+		return names;
+	}
 
 }
